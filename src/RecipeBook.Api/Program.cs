@@ -1,5 +1,6 @@
 using RecipeBook.Api.DependencyInjection;
 using RecipeBook.Api.OpenApi;
+using RecipeBook.Api.RequestPipeline;
 
 using Scalar.AspNetCore;
 
@@ -18,6 +19,7 @@ builder.Services.AddOpenApi("v1", opts =>
 
 builder.Services.AddGlobalErrorHandling();
 builder.Services.AddRecipeBookDatabase(builder.Configuration);
+builder.Services.AddRecipeBookApiVersioning();
 
 var app = builder.Build();
 
@@ -27,9 +29,10 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
-app.UseExceptionHandler();
-app.UseStatusCodePages();
+app.UseGlobalErrorHandling();
+app.UseSerilogRequestLogging();
+
+app.MapRecipeBookEndpoints();
 
 app.Run();

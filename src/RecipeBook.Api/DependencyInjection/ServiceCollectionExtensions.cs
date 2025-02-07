@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 
+using Asp.Versioning;
+
 using Marten;
 
 using Microsoft.AspNetCore.Http.Features;
@@ -45,6 +47,26 @@ public static class ServiceCollectionExtensions
                 context.ProblemDetails.Extensions.TryAdd("traceId", activity?.Id);
             };
         });
+
+        return services;
+    }
+
+    public static IServiceCollection AddRecipeBookApiVersioning(this IServiceCollection services)
+    {
+        services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1);
+                options.ReportApiVersions = true;
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ApiVersionReader = ApiVersionReader.Combine(
+                    new UrlSegmentApiVersionReader(),
+                    new HeaderApiVersionReader("X-Api-Version"));
+            })
+            .AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'V";
+                options.SubstituteApiVersionInUrl = true;
+            });
 
         return services;
     }
