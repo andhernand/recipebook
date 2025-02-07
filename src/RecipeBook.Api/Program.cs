@@ -1,6 +1,4 @@
-using Marten;
-
-using RecipeBook.Api;
+using RecipeBook.Api.DependencyInjection;
 
 using Serilog;
 
@@ -11,16 +9,7 @@ builder.Host.UseSerilog((context, logConfig) =>
 
 builder.Services.AddOpenApi();
 
-builder.Services.AddMarten(opts =>
-    {
-        var connectionString = builder.Configuration.GetConnectionString("RecipeBook")
-                               ?? throw new InvalidOperationException("Connection string not found");
-
-        opts.Connection(connectionString);
-        opts.DatabaseSchemaName = "recipebook";
-        opts.ApplicationAssembly = typeof(IRecipeBookApiMarker).Assembly;
-    })
-    .UseLightweightSessions();
+builder.Services.AddRecipeBookDatabase(builder.Configuration);
 
 var app = builder.Build();
 
