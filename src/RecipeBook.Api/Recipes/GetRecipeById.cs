@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Marten;
+
+using Microsoft.AspNetCore.Http.HttpResults;
 
 using RecipeBook.Api.Models;
-using RecipeBook.Api.Services;
 
 namespace RecipeBook.Api.Recipes;
 
@@ -16,17 +17,18 @@ public static class GetRecipeById
         group.MapGet(Route,
                 async Task<Results<Ok<Recipe>, NotFound>> (
                     Guid id,
-                    IService<Recipe> service,
+                    IQuerySession session,
                     CancellationToken token = default) =>
                 {
-                    var recipe = await service.GetByIdAsync(id, token);
+                    var recipe = await session.LoadAsync<Recipe>(id, token);
 
                     return recipe is null
                         ? TypedResults.NotFound()
                         : TypedResults.Ok(recipe);
                 })
             .WithName(Name)
-            .WithDescription(Description);
+            .WithDescription(Description)
+            .MapToApiVersion(1);
 
         return group;
     }
