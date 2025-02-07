@@ -24,6 +24,7 @@ public static class WebApplicationExtensions
         app.MapGroup("api/v{version:apiVersion}/recipes")
             .MapGetRecipeById()
             .MapGetAllRecipes()
+            .MapCreateRecipe()
             .WithTags("Recipes")
             .WithApiVersionSet(apiVersionSet)
             .WithOpenApi();

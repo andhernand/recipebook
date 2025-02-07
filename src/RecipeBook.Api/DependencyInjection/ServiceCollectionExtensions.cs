@@ -5,6 +5,7 @@ using Asp.Versioning;
 using FluentValidation;
 
 using Marten;
+using Marten.Schema.Identity;
 
 using Microsoft.AspNetCore.Http.Features;
 
@@ -26,6 +27,13 @@ public static class ServiceCollectionExtensions
                 opts.Connection(connectionString);
                 opts.DatabaseSchemaName = "recipebook";
                 opts.ApplicationAssembly = typeof(IRecipeBookApiMarker).Assembly;
+                opts.Policies.ForAllDocuments(m =>
+                {
+                    if (m.IdType == typeof(Guid))
+                    {
+                        m.IdStrategy = new CombGuidIdGeneration();
+                    }
+                });
             })
             .UseLightweightSessions();
 
