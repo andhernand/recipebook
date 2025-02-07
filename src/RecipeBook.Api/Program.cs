@@ -14,6 +14,7 @@ builder.Services.AddOpenApi("v1", opts =>
     opts.ShouldInclude = description => description.GroupName is "v1";
 });
 
+builder.Services.AddGlobalErrorHandling();
 builder.Services.AddRecipeBookDatabase(builder.Configuration);
 
 var app = builder.Build();
@@ -25,5 +26,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
+app.UseExceptionHandler();
+app.UseStatusCodePages();
 
 app.Run();
