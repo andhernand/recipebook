@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{F740850D-C55B-4597-B727-CA3713310849}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		docker-compose.yml = docker-compose.yml
+		global.json = global.json
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7A451EDF-DC2A-4E2C-A7F3-6EE58AE68573}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{754A6096-BB65-4027-9D2D-F30D4559D5AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeBook.Api", "src\RecipeBook.Api\RecipeBook.Api.csproj", "{06DEE7C2-2CB4-498A-8EF0-D5A94B34D8E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeBook.Api.IntegrationTests", "test\RecipeBook.Api.IntegrationTests\RecipeBook.Api.IntegrationTests.csproj", "{E56457E5-1148-4B0D-8D06-071CD6F94B17}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06DEE7C2-2CB4-498A-8EF0-D5A94B34D8E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06DEE7C2-2CB4-498A-8EF0-D5A94B34D8E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06DEE7C2-2CB4-498A-8EF0-D5A94B34D8E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06DEE7C2-2CB4-498A-8EF0-D5A94B34D8E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E56457E5-1148-4B0D-8D06-071CD6F94B17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E56457E5-1148-4B0D-8D06-071CD6F94B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E56457E5-1148-4B0D-8D06-071CD6F94B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E56457E5-1148-4B0D-8D06-071CD6F94B17}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{06DEE7C2-2CB4-498A-8EF0-D5A94B34D8E8} = {7A451EDF-DC2A-4E2C-A7F3-6EE58AE68573}
+		{E56457E5-1148-4B0D-8D06-071CD6F94B17} = {754A6096-BB65-4027-9D2D-F30D4559D5AA}
+	EndGlobalSection
+EndGlobal
