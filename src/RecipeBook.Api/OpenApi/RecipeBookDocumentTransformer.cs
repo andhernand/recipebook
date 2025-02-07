@@ -12,7 +12,7 @@ public class RecipeBookDocumentTransformer : IOpenApiDocumentTransformer
     {
         document.Info = new OpenApiInfo
         {
-            Title = "Recipe Book - Web API", Version = "v1", Description = "The Recipe Book - Web API"
+            Title = "Recipe Book - Web API", Version = "v1", Description = "A Web API for storing Recipes."
         };
 
         return Task.CompletedTask;
