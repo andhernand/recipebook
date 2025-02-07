@@ -1,5 +1,7 @@
 ﻿using Asp.Versioning;
 
+using RecipeBook.Api.Recipes;
+
 namespace RecipeBook.Api.RequestPipeline;
 
 public static class WebApplicationExtensions
@@ -20,6 +22,7 @@ public static class WebApplicationExtensions
             .Build();
 
         app.MapGroup("api/v{version:apiVersion}/recipes")
+            .MapGetRecipeById()
             .WithTags("Recipes")
             .WithApiVersionSet(apiVersionSet)
             .WithOpenApi();
