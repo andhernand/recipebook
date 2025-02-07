@@ -2,6 +2,8 @@
 
 using Asp.Versioning;
 
+using FluentValidation;
+
 using Marten;
 
 using Microsoft.AspNetCore.Http.Features;
@@ -67,6 +69,13 @@ public static class ServiceCollectionExtensions
                 options.GroupNameFormat = "'v'V";
                 options.SubstituteApiVersionInUrl = true;
             });
+
+        return services;
+    }
+
+    public static IServiceCollection AddRecipeBook(this IServiceCollection services)
+    {
+        services.AddValidatorsFromAssemblyContaining<IRecipeBookApiMarker>();
 
         return services;
     }

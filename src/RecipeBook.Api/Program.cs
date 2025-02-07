@@ -20,6 +20,7 @@ builder.Services.AddOpenApi("v1", opts =>
 builder.Services.AddGlobalErrorHandling();
 builder.Services.AddRecipeBookDatabase(builder.Configuration);
 builder.Services.AddRecipeBookApiVersioning();
+builder.Services.AddRecipeBook();
 
 var app = builder.Build();
 
