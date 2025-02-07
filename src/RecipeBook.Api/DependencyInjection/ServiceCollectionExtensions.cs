@@ -9,6 +9,7 @@ using Marten;
 using Microsoft.AspNetCore.Http.Features;
 
 using RecipeBook.Api.RequestPipeline;
+using RecipeBook.Api.Services;
 
 namespace RecipeBook.Api.DependencyInjection;
 
@@ -75,6 +76,8 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddRecipeBook(this IServiceCollection services)
     {
+        services.AddScoped(typeof(IService<>), typeof(Service<>));
+
         services.AddValidatorsFromAssemblyContaining<IRecipeBookApiMarker>();
 
         return services;
