@@ -25,6 +25,7 @@ public static class WebApplicationExtensions
             .MapGetRecipeById()
             .MapGetAllRecipes()
             .MapCreateRecipe()
+            .MapDeleteRecipeById()
             .WithTags("Recipes")
             .WithApiVersionSet(apiVersionSet)
             .WithOpenApi();
