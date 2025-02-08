@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.OpenApi;
 using Microsoft.OpenApi.Models;
 
-namespace RecipeBook.Api.OpenApi;
+namespace RecipeBook.Api.Infrastructure.OpenApi;
 
 public class RecipeBookDocumentTransformer : IOpenApiDocumentTransformer
 {

@@ -1,4 +1,4 @@
-﻿namespace RecipeBook.Api.Models;
+﻿namespace RecipeBook.Api.Recipes;
 
 public record Recipe(
     Guid Id,

@@ -2,8 +2,6 @@
 
 using Microsoft.AspNetCore.Http.HttpResults;
 
-using RecipeBook.Api.Models;
-
 namespace RecipeBook.Api.Recipes;
 
 public static class GetAllRecipes

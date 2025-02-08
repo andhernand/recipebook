@@ -1,6 +1,6 @@
-using RecipeBook.Api.DependencyInjection;
-using RecipeBook.Api.OpenApi;
-using RecipeBook.Api.RequestPipeline;
+using RecipeBook.Api.Infrastructure.DependencyInjection;
+using RecipeBook.Api.Infrastructure.OpenApi;
+using RecipeBook.Api.Infrastructure.RequestPipeline;
 
 using Scalar.AspNetCore;
 

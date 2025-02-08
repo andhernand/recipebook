@@ -2,7 +2,7 @@
 
 using RecipeBook.Api.Recipes;
 
-namespace RecipeBook.Api.RequestPipeline;
+namespace RecipeBook.Api.Infrastructure.RequestPipeline;
 
 public static class WebApplicationExtensions
 {

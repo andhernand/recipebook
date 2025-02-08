@@ -7,8 +7,7 @@ using Marten.Schema.Identity;
 
 using Microsoft.AspNetCore.Http.HttpResults;
 
-using RecipeBook.Api.Filters;
-using RecipeBook.Api.Models;
+using RecipeBook.Api.Infrastructure.Filters;
 
 namespace RecipeBook.Api.Recipes;
 

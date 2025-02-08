@@ -9,9 +9,9 @@ using Marten.Schema.Identity;
 
 using Microsoft.AspNetCore.Http.Features;
 
-using RecipeBook.Api.RequestPipeline;
+using RecipeBook.Api.Infrastructure.RequestPipeline;
 
-namespace RecipeBook.Api.DependencyInjection;
+namespace RecipeBook.Api.Infrastructure.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {

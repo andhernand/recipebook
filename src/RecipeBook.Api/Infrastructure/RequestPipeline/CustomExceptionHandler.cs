@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RecipeBook.Api.RequestPipeline;
+namespace RecipeBook.Api.Infrastructure.RequestPipeline;
 
 public class CustomExceptionHandler : IExceptionHandler
 {

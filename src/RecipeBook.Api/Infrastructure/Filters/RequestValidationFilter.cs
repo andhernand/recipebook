@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace RecipeBook.Api.Filters;
+namespace RecipeBook.Api.Infrastructure.Filters;
 
 public class RequestValidationFilter<T>(
     IValidator<T> validator,
