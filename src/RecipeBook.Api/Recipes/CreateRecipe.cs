@@ -3,7 +3,6 @@
 using FluentValidation;
 
 using Marten;
-using Marten.Schema.Identity;
 
 using Microsoft.AspNetCore.Http.HttpResults;
 
@@ -25,7 +24,8 @@ public static class CreateRecipe
                     IDocumentSession session,
                     CancellationToken token = default) =>
                 {
-                    var id = CombGuidIdGeneration.NewGuid();
+                    var id = Ulid.NewUlid().ToGuid();
+
                     var recipe = new Recipe(
                         id,
                         request.Title,
