@@ -9,7 +9,7 @@ using Marten.Schema.Identity;
 
 using Microsoft.AspNetCore.Http.Features;
 
-using RecipeBook.Api.Infrastructure.RequestPipeline;
+using RecipeBook.Api.Infrastructure.Middleware;
 
 namespace RecipeBook.Api.Infrastructure.DependencyInjection;
 
