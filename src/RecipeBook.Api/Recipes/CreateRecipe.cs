@@ -59,12 +59,27 @@ public class CreateRecipeRequestValidator : AbstractValidator<CreateRecipeReques
 {
     public CreateRecipeRequestValidator()
     {
-        RuleFor(x => x.Title).NotEmpty();
-        RuleFor(x => x.Description).NotEmpty();
-        RuleFor(x => x.Author).NotEmpty();
-        RuleFor(x => x.Ingredients).NotEmpty();
-        RuleForEach(x => x.Ingredients).NotEmpty();
-        RuleFor(x => x.Instructions).NotEmpty();
-        RuleForEach(x => x.Instructions).NotEmpty();
+        RuleFor(x => x.Title)
+            .Length(4, 256);
+
+        RuleFor(x => x.Description)
+            .Length(4, 256);
+
+        RuleFor(x => x.Author)
+            .Length(4, 256);
+
+        RuleFor(x => x.Ingredients)
+            .NotEmpty()
+            .DependentRules(() =>
+            {
+                RuleForEach(x => x.Ingredients).NotEmpty();
+            });
+
+        RuleFor(x => x.Instructions)
+            .NotEmpty()
+            .DependentRules(() =>
+            {
+                RuleForEach(x => x.Instructions).NotEmpty();
+            });
     }
 }
