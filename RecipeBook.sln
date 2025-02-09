@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionF
 		LICENSE = LICENSE
 		README.md = README.md
 		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7A451EDF-DC2A-4E2C-A7F3-6EE58AE68573}"
@@ -22,6 +23,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeBook.Api", "src\RecipeBook.Api\RecipeBook.Api.csproj", "{06DEE7C2-2CB4-498A-8EF0-D5A94B34D8E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeBook.Api.IntegrationTests", "test\RecipeBook.Api.IntegrationTests\RecipeBook.Api.IntegrationTests.csproj", "{E56457E5-1148-4B0D-8D06-071CD6F94B17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{8D8A0121-6A49-4C95-87DD-6E21AAF8682A}"
+	ProjectSection(SolutionItems) = preProject
+		.github\dependabot.yml = .github\dependabot.yml
+		.github\CODEOWNERS = .github\CODEOWNERS
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{EB60A823-62C6-47B6-949C-A62099B05A73}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet-ci.yml = .github\workflows\dotnet-ci.yml
+		.github\workflows\node-ci.yml = .github\workflows\node-ci.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,5 +57,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{06DEE7C2-2CB4-498A-8EF0-D5A94B34D8E8} = {7A451EDF-DC2A-4E2C-A7F3-6EE58AE68573}
 		{E56457E5-1148-4B0D-8D06-071CD6F94B17} = {754A6096-BB65-4027-9D2D-F30D4559D5AA}
+		{EB60A823-62C6-47B6-949C-A62099B05A73} = {8D8A0121-6A49-4C95-87DD-6E21AAF8682A}
 	EndGlobalSection
 EndGlobal
