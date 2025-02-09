@@ -51,9 +51,12 @@ public class GetAllRecipesTests : IClassFixture<RecipeBookApiFactory>, IAsyncLif
 
     public async ValueTask DisposeAsync()
     {
+        if (_recipeIds.Count == 0)
+            return;
+
         using var client = _factory.CreateClient();
 
-        foreach (Guid recipeId in _recipeIds)
+        foreach (var recipeId in _recipeIds)
         {
             _ = await client.DeleteAsync($"{Mother.RecipesApiPath}/{recipeId}", TestContext.Current.CancellationToken);
         }
