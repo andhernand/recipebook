@@ -4,3 +4,5 @@
 *.{bat,[bB][aA][tT]} text eol=crlf
 *.{ics,[iI][cC][sS]} text eol=crlf
 *.sh text eol=lf
+*.mod text eol=lf
+*.sum text eol=lf
