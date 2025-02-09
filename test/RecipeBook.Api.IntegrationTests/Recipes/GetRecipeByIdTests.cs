@@ -5,20 +5,13 @@ using RecipeBook.Api.Recipes;
 
 namespace RecipeBook.Api.IntegrationTests.Recipes;
 
-public class GetRecipeByIdTests : IClassFixture<RecipeBookApiFactory>, IAsyncLifetime
+public class GetRecipeByIdTests(RecipeBookApiFactory factory) : TestBase(factory)
 {
-    private readonly RecipeBookApiFactory _factory;
-    private readonly List<Guid> _recipeIds = [];
-
-    public GetRecipeByIdTests(RecipeBookApiFactory factory)
-    {
-        _factory = factory;
-    }
-
     [Fact]
     public async Task GetRecipeById_WhenRecipeDoesNotExist_ReturnsNotFound()
     {
-        using var client = _factory.CreateClient();
+        using var client = CreateClient();
+
         var id = Ulid.NewUlid().ToGuid();
 
         var response = await client.GetAsync($"{Mother.RecipesApiPath}/{id}", TestContext.Current.CancellationToken);
@@ -29,7 +22,8 @@ public class GetRecipeByIdTests : IClassFixture<RecipeBookApiFactory>, IAsyncLif
     [Fact]
     public async Task GetRecipeById_WhenRecipeExists_ReturnsRecipe()
     {
-        using var client = _factory.CreateClient();
+        using var client = CreateClient();
+
         var expected = await Mother.CreateRecipeAsync(client, TestContext.Current.CancellationToken);
         _recipeIds.Add(expected.Id);
 
@@ -40,20 +34,5 @@ public class GetRecipeByIdTests : IClassFixture<RecipeBookApiFactory>, IAsyncLif
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
         var actual = await response.Content.ReadFromJsonAsync<Recipe>(TestContext.Current.CancellationToken);
         actual.ShouldBeEquivalentTo(expected);
-    }
-
-    public ValueTask InitializeAsync() => ValueTask.CompletedTask;
-
-    public async ValueTask DisposeAsync()
-    {
-        if (_recipeIds.Count == 0)
-            return;
-
-        using var client = _factory.CreateClient();
-
-        foreach (var recipeId in _recipeIds)
-        {
-            _ = await client.DeleteAsync($"{Mother.RecipesApiPath}/{recipeId}", TestContext.Current.CancellationToken);
-        }
     }
 }

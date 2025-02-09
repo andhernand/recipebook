@@ -2,20 +2,13 @@
 
 namespace RecipeBook.Api.IntegrationTests.Recipes;
 
-public class DeleteRecipeByIdTests : IClassFixture<RecipeBookApiFactory>, IAsyncLifetime
+public class DeleteRecipeByIdTests(RecipeBookApiFactory factory) : TestBase(factory)
 {
-    private readonly RecipeBookApiFactory _factory;
-    private readonly List<Guid> _recipeIds = [];
-
-    public DeleteRecipeByIdTests(RecipeBookApiFactory factory)
-    {
-        _factory = factory;
-    }
-
     [Fact]
     public async Task DeleteRecipeById_WhenRecipeDoesNotExist_ShouldReturnNotFound()
     {
-        using var client = _factory.CreateClient();
+        using var client = CreateClient();
+
         var id = Ulid.NewUlid().ToGuid();
 
         var response = await client.DeleteAsync($"{Mother.RecipesApiPath}/{id}", TestContext.Current.CancellationToken);
@@ -26,7 +19,8 @@ public class DeleteRecipeByIdTests : IClassFixture<RecipeBookApiFactory>, IAsync
     [Fact]
     public async Task DeleteRecipeById_WhenRecipeDoesExist_ShouldReturnNoContent()
     {
-        using var client = _factory.CreateClient();
+        using var client = CreateClient();
+
         var recipe = await Mother.CreateRecipeAsync(client, TestContext.Current.CancellationToken);
         _recipeIds.Add(recipe.Id);
 
@@ -35,20 +29,5 @@ public class DeleteRecipeByIdTests : IClassFixture<RecipeBookApiFactory>, IAsync
             TestContext.Current.CancellationToken);
 
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
-    }
-
-    public ValueTask InitializeAsync() => ValueTask.CompletedTask;
-
-    public async ValueTask DisposeAsync()
-    {
-        if (_recipeIds.Count == 0)
-            return;
-
-        using var client = _factory.CreateClient();
-
-        foreach (var recipeId in _recipeIds)
-        {
-            _ = await client.DeleteAsync($"{Mother.RecipesApiPath}/{recipeId}", TestContext.Current.CancellationToken);
-        }
     }
 }
