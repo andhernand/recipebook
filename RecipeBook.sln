@@ -36,6 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\node-ci.yml = .github\workflows\node-ci.yml
 	EndProjectSection
 EndProject
+Project("{54a90642-561a-4bb1-a94e-469adee60c69}") = "recipebook.web", "src\recipebook.web\recipebook.web.esproj", "{E5E1AC7C-627E-4459-B868-84617131493C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +55,15 @@ Global
 		{E56457E5-1148-4B0D-8D06-071CD6F94B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E56457E5-1148-4B0D-8D06-071CD6F94B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E56457E5-1148-4B0D-8D06-071CD6F94B17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5E1AC7C-627E-4459-B868-84617131493C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5E1AC7C-627E-4459-B868-84617131493C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5E1AC7C-627E-4459-B868-84617131493C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5E1AC7C-627E-4459-B868-84617131493C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{06DEE7C2-2CB4-498A-8EF0-D5A94B34D8E8} = {7A451EDF-DC2A-4E2C-A7F3-6EE58AE68573}
 		{E56457E5-1148-4B0D-8D06-071CD6F94B17} = {754A6096-BB65-4027-9D2D-F30D4559D5AA}
 		{EB60A823-62C6-47B6-949C-A62099B05A73} = {8D8A0121-6A49-4C95-87DD-6E21AAF8682A}
+		{E5E1AC7C-627E-4459-B868-84617131493C} = {7A451EDF-DC2A-4E2C-A7F3-6EE58AE68573}
 	EndGlobalSection
 EndGlobal
