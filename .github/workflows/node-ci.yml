@@ -37,14 +37,6 @@ jobs:
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
 
-      - name: Cache .NET packages
-        uses: actions/cache@v4.2.0
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
-
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4.3.0
         with:
@@ -93,5 +85,6 @@ jobs:
       - name: Add Coverage PR Comment
         uses: marocchino/sticky-pull-request-comment@v2.9.1
         with:
+          header: 'Web Client'
           recreate: true
           path: code-coverage-results.md
