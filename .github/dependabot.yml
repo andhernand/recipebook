@@ -15,9 +15,9 @@ updates:
       interval: daily
     open-pull-requests-limit: 15
     groups:
-      RecipeBook:
+      all-dependencies:
         patterns:
-          - "RecipeBook.*"
+          - "*"
     commit-message:
       prefix: "nuget"
       include: "scope"
