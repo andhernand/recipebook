@@ -39,6 +39,7 @@ dotnet test RecipeBook.sln
 #### Restore, Build, and Run
 
 ```bash
+cd src/recipebook.web
 npm ci
 npm run start
 ```
