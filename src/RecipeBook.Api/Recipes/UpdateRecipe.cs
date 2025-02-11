@@ -49,7 +49,8 @@ public static class UpdateRecipe
             .WithName(Name)
             .WithDescription(Description)
             .Accepts<UpdateRecipeRequest>(false, MediaTypeNames.Application.Json)
-            .AddEndpointFilter<RequestValidationFilter<UpdateRecipeRequest>>();
+            .AddEndpointFilter<RequestValidationFilter<UpdateRecipeRequest>>()
+            .MapToApiVersion(1);
 
         return group;
     }
