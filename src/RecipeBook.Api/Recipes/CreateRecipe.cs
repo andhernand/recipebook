@@ -42,7 +42,8 @@ public static class CreateRecipe
             .WithName(Name)
             .WithDescription(Description)
             .Accepts<CreateRecipeRequest>(false, MediaTypeNames.Application.Json)
-            .AddEndpointFilter<RequestValidationFilter<CreateRecipeRequest>>();
+            .AddEndpointFilter<RequestValidationFilter<CreateRecipeRequest>>()
+            .MapToApiVersion(1);
 
         return group;
     }
