@@ -88,3 +88,4 @@ jobs:
           header: 'Web Client'
           recreate: true
           path: code-coverage-results.md
+          message: 'Recipe Book Web Client Code Coverage'
