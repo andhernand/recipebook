@@ -85,3 +85,4 @@ jobs:
           header: 'API Server'
           recreate: true
           path: code-coverage-results.md
+          message: 'Recipe Book API Server Code Coverage'
