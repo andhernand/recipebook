@@ -1,16 +1,9 @@
 version: 2
 
-registries:
-  public-nuget:
-    type: nuget-feed
-    url: https://api.nuget.org/v3/index.json
-
 updates:
 
   - package-ecosystem: nuget
     directory: "/"
-    registries:
-      - public-nuget
     schedule:
       interval: daily
     open-pull-requests-limit: 15
@@ -27,7 +20,7 @@ updates:
   - package-ecosystem: npm
     directory: "/src/recipebook.web"
     schedule:
-      interval: weekly
+      interval: daily
     open-pull-requests-limit: 15
     groups:
       all-dependencies:
@@ -44,6 +37,10 @@ updates:
     schedule:
       interval: daily
     open-pull-requests-limit: 15
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
     commit-message:
       prefix: "github-actions"
       include: "scope"
