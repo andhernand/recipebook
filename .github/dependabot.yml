@@ -1,27 +1,44 @@
 version: 2
 
+registries:
+  public-nuget:
+    type: nuget-feed
+    url: https://api.nuget.org/v3/index.json
+
 updates:
 
-  - package-ecosystem: nuget
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: daily
+      interval: "daily"
+    commit-message:
+      prefix: "GitHub Actions"
+      include: "scope"
+    labels:
+      - "dependabot"
     open-pull-requests-limit: 15
+
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    registries:
+      - public-nuget
     groups:
       all-dependencies:
         patterns:
           - "*"
     commit-message:
-      prefix: "nuget"
+      prefix: "NuGet"
       include: "scope"
     labels:
-      - dependabot
+      - "dependabot"
+    open-pull-requests-limit: 15
 
-  - package-ecosystem: npm
+  - package-ecosystem: "npm"
     directory: "/src/recipebook.web"
     schedule:
-      interval: daily
-    open-pull-requests-limit: 15
+      interval: "daily"
     groups:
       all-dependencies:
         patterns:
@@ -30,19 +47,6 @@ updates:
       prefix: "npm"
       include: "scope"
     labels:
-      - dependabot
-
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: daily
+      - "dependabot"
     open-pull-requests-limit: 15
-    groups:
-      all-dependencies:
-        patterns:
-          - "*"
-    commit-message:
-      prefix: "github-actions"
-      include: "scope"
-    labels:
-      - dependabot
+
