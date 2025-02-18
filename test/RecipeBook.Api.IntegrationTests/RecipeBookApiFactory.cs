@@ -22,4 +22,10 @@ public class RecipeBookApiFactory : WebApplicationFactory<IRecipeBookApiMarker>,
     {
         await _postgres.StartAsync();
     }
+
+    public override async ValueTask DisposeAsync()
+    {
+        await _postgres.StopAsync();
+        await base.DisposeAsync();
+    }
 }
