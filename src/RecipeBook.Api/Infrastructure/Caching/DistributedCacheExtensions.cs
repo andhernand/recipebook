@@ -3,7 +3,7 @@ using System.Text.Json;
 
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace RecipeBook.Api.Infrastructure.Caching;
+namespace Microsoft.Extensions.Caching.Distributed;
 
 /// <summary>
 /// Provides a simple convenience wrapper around <see cref="IDistributedCache"/>; note that this implementation

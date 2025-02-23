@@ -1,6 +1,7 @@
 ﻿using Marten;
 
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace RecipeBook.Api.Recipes;
 
@@ -16,6 +17,7 @@ public static class DeleteRecipeById
                 async Task<Results<NoContent, NotFound>> (
                     Guid id,
                     IDocumentSession session,
+                    IDistributedCache cache,
                     CancellationToken token = default) =>
                 {
                     var recipe = await session.LoadAsync<Recipe>(id, token);
@@ -25,6 +27,8 @@ public static class DeleteRecipeById
 
                     session.Delete(recipe);
                     await session.SaveChangesAsync(token);
+
+                    await cache.RemoveAsync($"{nameof(Recipe)}-{id}", token);
 
                     return TypedResults.NoContent();
                 })
