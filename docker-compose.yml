@@ -2,6 +2,7 @@ name: recipe-book
 
 volumes:
   pgdata:
+  dfdata:
 
 services:
   postgres:
@@ -14,3 +15,11 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+  dragonfly:
+    container_name: dragonfly
+    image: docker.dragonflydb.io/dragonflydb/dragonfly
+    ports:
+      - "6379:6379"
+    volumes:
+      - dfdata:/data
