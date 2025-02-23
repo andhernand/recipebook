@@ -1,6 +1,9 @@
 ﻿using Marten;
 
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Caching.Distributed;
+
+using RecipeBook.Api.Infrastructure.Caching;
 
 namespace RecipeBook.Api.Recipes;
 
@@ -16,9 +19,17 @@ public static class GetRecipeById
                 async Task<Results<Ok<Recipe>, NotFound>> (
                     Guid id,
                     IQuerySession session,
+                    IDistributedCache cache,
                     CancellationToken token = default) =>
                 {
-                    var recipe = await session.LoadAsync<Recipe>(id, token);
+                    var recipe = await cache.GetAsync($"{nameof(Recipe)}-{id}",
+                        async ct =>
+                        {
+                            var recipe = await session.LoadAsync<Recipe>(id, ct);
+                            return recipe;
+                        },
+                        CacheOptions.DefaultExpiration,
+                        token);
 
                     return recipe is null
                         ? TypedResults.NotFound()

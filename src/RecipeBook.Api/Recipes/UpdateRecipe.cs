@@ -5,6 +5,7 @@ using FluentValidation;
 using Marten;
 
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Caching.Distributed;
 
 using RecipeBook.Api.Infrastructure.Filters;
 
@@ -23,6 +24,7 @@ public static class UpdateRecipe
                     Guid id,
                     UpdateRecipeRequest request,
                     IDocumentSession session,
+                    IDistributedCache cache,
                     CancellationToken token = default) =>
                 {
                     var existingRecipe = await session.LoadAsync<Recipe>(id, token);
@@ -43,6 +45,8 @@ public static class UpdateRecipe
 
                     session.Update(updated);
                     await session.SaveChangesAsync(token);
+
+                    await cache.RemoveAsync($"{nameof(Recipe)}-{id}", token);
 
                     return TypedResults.Ok(updated);
                 })
