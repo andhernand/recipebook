@@ -79,4 +79,14 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    public static IServiceCollection AddRecipeBookCaching(this IServiceCollection services, IConfiguration config)
+    {
+        var cache = config.GetConnectionString("Cache")
+                    ?? throw new NullReferenceException("The Cache connection string is missing.");
+
+        services.AddStackExchangeRedisCache(options => options.Configuration = cache);
+
+        return services;
+    }
 }

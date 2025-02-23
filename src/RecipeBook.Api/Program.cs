@@ -21,6 +21,7 @@ builder.Services.AddGlobalErrorHandling();
 builder.Services.AddRecipeBookDatabase(builder.Configuration);
 builder.Services.AddRecipeBookApiVersioning();
 builder.Services.AddRecipeBook();
+builder.Services.AddRecipeBookCaching(builder.Configuration);
 
 var app = builder.Build();
 
