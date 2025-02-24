@@ -1,4 +1,5 @@
 ﻿using Marten;
+using Marten.Pagination;
 
 using Microsoft.AspNetCore.Http.HttpResults;
 
@@ -13,13 +14,29 @@ public static class GetAllRecipes
     public static RouteGroupBuilder MapGetAllRecipes(this RouteGroupBuilder group)
     {
         group.MapGet(Route,
-                async Task<Ok<IReadOnlyList<Recipe>>> (
+                async Task<Ok<RecipesResponse>> (
                     IQuerySession session,
+                    int pageNumber = 1,
+                    int pageSize = 10,
                     CancellationToken token = default) =>
                 {
-                    var recipes = await session.Query<Recipe>().ToListAsync(token);
+                    var recipes = await session.Query<Recipe>()
+                        .ToPagedListAsync(pageNumber, pageSize, token);
 
-                    return TypedResults.Ok(recipes);
+                    var response = new RecipesResponse(
+                        recipes.AsEnumerable(),
+                        recipes.PageNumber,
+                        recipes.PageSize,
+                        recipes.PageCount,
+                        recipes.TotalItemCount,
+                        recipes.HasPreviousPage,
+                        recipes.HasNextPage,
+                        recipes.IsFirstPage,
+                        recipes.IsLastPage,
+                        recipes.FirstItemOnPage,
+                        recipes.LastItemOnPage);
+
+                    return TypedResults.Ok(response);
                 })
             .WithName(Name)
             .WithDescription(Description)
@@ -28,3 +45,16 @@ public static class GetAllRecipes
         return group;
     }
 }
+
+public record RecipesResponse(
+    IEnumerable<Recipe> Items,
+    long PageNumber,
+    long PageSize,
+    long PageCount,
+    long TotalItems,
+    bool HasPreviousPage,
+    bool HasNextPage,
+    bool IsFirstPage,
+    bool IsLastPage,
+    long FirstItemOnPage,
+    long LastItemOnPage);
