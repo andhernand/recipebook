@@ -20,6 +20,8 @@ public class RecipeBookApiFactory : WebApplicationFactory<IRecipeBookApiMarker>,
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseSetting("ConnectionStrings:RecipeBook", _postgres.GetConnectionString());
+        builder.UseSetting("ConnectionStrings:Cache", _cache.GetConnectionString());
+
         base.ConfigureWebHost(builder);
     }
 
