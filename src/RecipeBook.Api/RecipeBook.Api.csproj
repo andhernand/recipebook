@@ -14,7 +14,7 @@
     <PackageReference Include="Marten.AspNetCore" Version="7.40.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.4" />
-    <PackageReference Include="Scalar.AspNetCore" Version="2.2.1" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.2.3" />
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
     <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
     <PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0" />
