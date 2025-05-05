@@ -13,8 +13,7 @@ builder
     .AddObservability()
     .AddDatabase()
     .AddApiVersioning()
-    .AddApplicationServices()
-    .AddCaching();
+    .AddApplicationServices();
 
 WebApplication app = builder.Build();
 
