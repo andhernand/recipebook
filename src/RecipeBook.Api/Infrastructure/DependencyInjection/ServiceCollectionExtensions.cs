@@ -1,12 +1,15 @@
-﻿using System.Diagnostics;
-
-using Asp.Versioning;
+﻿using Asp.Versioning;
 
 using FluentValidation;
 
 using Marten;
 
-using Microsoft.AspNetCore.Http.Features;
+using Npgsql;
+
+using OpenTelemetry;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 using RecipeBook.Api.Infrastructure.Middleware;
 
@@ -35,18 +38,14 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddGlobalErrorHandling(this IServiceCollection services)
     {
         services.AddProblemDetails(options =>
-        {
             options.CustomizeProblemDetails = context =>
             {
                 context.ProblemDetails.Instance =
                     $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
 
                 context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
+            });
 
-                Activity? activity = context.HttpContext.Features.Get<IHttpActivityFeature>()?.Activity;
-                context.ProblemDetails.Extensions.TryAdd("traceId", activity?.Id);
-            };
-        });
         services.AddExceptionHandler<CustomExceptionHandler>();
 
         return services;
@@ -85,6 +84,29 @@ public static class ServiceCollectionExtensions
                     ?? throw new NullReferenceException("The Cache connection string is missing.");
 
         services.AddStackExchangeRedisCache(options => options.Configuration = cache);
+
+        return services;
+    }
+
+    public static IServiceCollection AddObservability(this IServiceCollection services, string applicationName)
+    {
+        services
+            .AddOpenTelemetry()
+            .ConfigureResource(resource =>
+                resource.AddService(
+                    serviceName: applicationName,
+                    autoGenerateServiceInstanceId: false,
+                    serviceInstanceId: Environment.MachineName))
+            .WithTracing(tracing => tracing
+                .AddHttpClientInstrumentation()
+                .AddAspNetCoreInstrumentation()
+                .AddNpgsql())
+            .WithMetrics(metrics => metrics
+                .AddHttpClientInstrumentation()
+                .AddAspNetCoreInstrumentation()
+                .AddRuntimeInstrumentation()
+                .AddNpgsqlInstrumentation())
+            .UseOtlpExporter();
 
         return services;
     }
