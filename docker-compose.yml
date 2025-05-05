@@ -23,3 +23,13 @@ services:
       - "6379:6379"
     volumes:
       - valkey:/data
+
+  dashboard:
+    container_name: dashboard
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:9.1.0
+    environment:
+      DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: true
+    ports:
+      - "18888:18888"
+      - "4317:18889"
+      - "4318:18890"
