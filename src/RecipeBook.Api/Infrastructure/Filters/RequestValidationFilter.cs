@@ -1,21 +1,39 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 
 namespace RecipeBook.Api.Infrastructure.Filters;
 
-public class RequestValidationFilter<T>(
-    IValidator<T> validator,
-    ILogger<RequestValidationFilter<T>> logger) : IEndpointFilter
+public class RequestValidationFilter<T> : IEndpointFilter
 {
-    public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
-    {
-        var request = context.Arguments.OfType<T>().First();
-        var result = await validator.ValidateAsync(request, context.HttpContext.RequestAborted);
+    private readonly IValidator<T> _validator;
+    private readonly ILogger<RequestValidationFilter<T>> _logger;
 
-        if (!result.IsValid)
+    public RequestValidationFilter(IValidator<T> validator, ILogger<RequestValidationFilter<T>> logger)
+    {
+        _validator = validator;
+        _logger = logger;
+    }
+
+    public async ValueTask<object?> InvokeAsync(
+        EndpointFilterInvocationContext context,
+        EndpointFilterDelegate next)
+    {
+        T request = context.Arguments.OfType<T>().First();
+
+        ValidationResult validationResult = await _validator.ValidateAsync(
+            request,
+            context.HttpContext.RequestAborted);
+
+        if (!validationResult.IsValid)
         {
-            var problems = TypedResults.ValidationProblem(result.ToDictionary());
-            logger.LogInformation("The request had the following {@Problems}", problems);
-            return problems;
+            _logger.LogWarning("{Type} had the following {ValidationFailures}",
+                typeof(T).Name,
+                validationResult.ToString(","));
+
+            return TypedResults.ValidationProblem(
+                errors: validationResult.ToDictionary(),
+                instance: $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}"
+            );
         }
 
         return await next(context);
