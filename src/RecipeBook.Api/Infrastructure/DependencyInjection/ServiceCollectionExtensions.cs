@@ -34,8 +34,6 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddGlobalErrorHandling(this IServiceCollection services)
     {
-        services.AddExceptionHandler<CustomExceptionHandler>();
-
         services.AddProblemDetails(options =>
         {
             options.CustomizeProblemDetails = context =>
@@ -49,6 +47,7 @@ public static class ServiceCollectionExtensions
                 context.ProblemDetails.Extensions.TryAdd("traceId", activity?.Id);
             };
         });
+        services.AddExceptionHandler<CustomExceptionHandler>();
 
         return services;
     }

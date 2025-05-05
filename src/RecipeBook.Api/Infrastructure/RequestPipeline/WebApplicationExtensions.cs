@@ -8,7 +8,7 @@ public static class WebApplicationExtensions
 {
     public static WebApplication UseGlobalErrorHandling(this WebApplication app)
     {
-        app.UseExceptionHandler();
+        app.UseExceptionHandler(_ => { });
         app.UseStatusCodePages();
 
         return app;
