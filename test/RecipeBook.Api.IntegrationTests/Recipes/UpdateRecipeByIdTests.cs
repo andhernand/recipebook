@@ -15,7 +15,7 @@ public class UpdateRecipeByIdTests(RecipeBookApiFactory factory) : TestBase(fact
         // Arrange
         using var client = CreateClient();
 
-        var id = Ulid.NewUlid().ToGuid();
+        var id = Guid.CreateVersion7();
         var request = Mother.GenerateUpdateRecipeRequest();
 
         // Act
