@@ -24,10 +24,8 @@ public static class CreateRecipe
                     IDocumentSession session,
                     CancellationToken token = default) =>
                 {
-                    var id = Ulid.NewUlid().ToGuid();
-
                     var recipe = new Recipe(
-                        id,
+                        Guid.CreateVersion7(),
                         request.Title,
                         request.Description,
                         request.Author,
@@ -37,7 +35,7 @@ public static class CreateRecipe
                     session.Store(recipe);
                     await session.SaveChangesAsync(token);
 
-                    return TypedResults.CreatedAtRoute(recipe, GetRecipeById.Name, new { id = recipe.Id });
+                    return TypedResults.CreatedAtRoute(recipe, GetRecipeById.Name, new { recipe.Id });
                 })
             .WithName(Name)
             .WithDescription(Description)

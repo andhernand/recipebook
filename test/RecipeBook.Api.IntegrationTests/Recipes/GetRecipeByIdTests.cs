@@ -12,7 +12,7 @@ public class GetRecipeByIdTests(RecipeBookApiFactory factory) : TestBase(factory
     {
         using var client = CreateClient();
 
-        var id = Ulid.NewUlid().ToGuid();
+        var id = Guid.CreateVersion7();
 
         var response = await client.GetAsync($"{Mother.RecipesApiPath}/{id}", TestContext.Current.CancellationToken);
 
