@@ -12,12 +12,12 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
         _problemDetailsService = problemDetailsService;
     }
 
-    public async ValueTask<bool> TryHandleAsync(
+    public ValueTask<bool> TryHandleAsync(
         HttpContext httpContext,
         Exception exception,
         CancellationToken cancellationToken)
     {
-        return await _problemDetailsService.TryWriteAsync(new ProblemDetailsContext
+        return _problemDetailsService.TryWriteAsync(new ProblemDetailsContext
         {
             HttpContext = httpContext,
             Exception = exception,
