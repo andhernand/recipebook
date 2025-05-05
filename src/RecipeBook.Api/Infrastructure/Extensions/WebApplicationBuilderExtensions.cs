@@ -143,14 +143,4 @@ public static class WebApplicationBuilderExtensions
 
         return builder;
     }
-
-    public static WebApplicationBuilder AddCaching(this WebApplicationBuilder builder)
-    {
-        var cache = builder.Configuration.GetConnectionString("Cache")
-                    ?? throw new NullReferenceException("The Cache connection string is missing.");
-
-        builder.Services.AddStackExchangeRedisCache(options => options.Configuration = cache);
-
-        return builder;
-    }
 }

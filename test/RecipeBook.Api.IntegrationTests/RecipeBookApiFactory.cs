@@ -13,14 +13,9 @@ public class RecipeBookApiFactory : WebApplicationFactory<IRecipeBookApiMarker>,
         .WithPassword("Sup3r!S3cr3t!T35ting")
         .Build();
 
-    private readonly RedisContainer _cache = new RedisBuilder()
-        .WithImage("valkey/valkey:8.0.2")
-        .Build();
-
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseSetting("ConnectionStrings:RecipeBook", _postgres.GetConnectionString());
-        builder.UseSetting("ConnectionStrings:Cache", _cache.GetConnectionString());
 
         base.ConfigureWebHost(builder);
     }
@@ -28,16 +23,13 @@ public class RecipeBookApiFactory : WebApplicationFactory<IRecipeBookApiMarker>,
     public async ValueTask InitializeAsync()
     {
         await _postgres.StartAsync();
-        await _cache.StartAsync();
     }
 
     public override async ValueTask DisposeAsync()
     {
         await _postgres.StopAsync();
-        await _cache.StopAsync();
 
         await _postgres.DisposeAsync();
-        await _cache.DisposeAsync();
 
         await base.DisposeAsync();
     }
