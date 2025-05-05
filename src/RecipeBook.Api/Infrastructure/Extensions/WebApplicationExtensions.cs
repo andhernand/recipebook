@@ -2,19 +2,11 @@
 
 using RecipeBook.Api.Recipes;
 
-namespace RecipeBook.Api.Infrastructure.RequestPipeline;
+namespace RecipeBook.Api.Infrastructure.Extensions;
 
 public static class WebApplicationExtensions
 {
-    public static WebApplication UseGlobalErrorHandling(this WebApplication app)
-    {
-        app.UseExceptionHandler(_ => { });
-        app.UseStatusCodePages();
-
-        return app;
-    }
-
-    public static WebApplication MapRecipeBookEndpoints(this WebApplication app)
+    public static WebApplication MapEndpoints(this WebApplication app)
     {
         var apiVersionSet = app.NewApiVersionSet()
             .HasApiVersion(new ApiVersion(1))
