@@ -1,3 +1,5 @@
+using Oakton;
+
 using RecipeBook.Api.Infrastructure.Extensions;
 
 using Scalar.AspNetCore;
@@ -5,6 +7,8 @@ using Scalar.AspNetCore;
 using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.Host.ApplyOaktonExtensions();
 
 builder
     .AddLogging()
@@ -30,4 +34,4 @@ app.UseSerilogRequestLogging();
 
 app.MapEndpoints();
 
-await app.RunAsync();
+return await app.RunOaktonCommands(args);

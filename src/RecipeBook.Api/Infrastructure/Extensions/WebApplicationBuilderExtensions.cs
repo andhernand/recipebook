@@ -2,6 +2,8 @@
 
 using FluentValidation;
 
+using JasperFx.CodeGeneration;
+
 using Marten;
 
 using Npgsql;
@@ -13,9 +15,12 @@ using OpenTelemetry.Trace;
 
 using RecipeBook.Api.Infrastructure.Middleware;
 using RecipeBook.Api.Infrastructure.OpenApi;
+using RecipeBook.Api.Recipes;
 
 using Serilog;
 using Serilog.Sinks.OpenTelemetry;
+
+using Weasel.Core;
 
 namespace RecipeBook.Api.Infrastructure.Extensions;
 
@@ -84,12 +89,14 @@ public static class WebApplicationBuilderExtensions
             .WithTracing(tracing => tracing
                 .AddHttpClientInstrumentation()
                 .AddAspNetCoreInstrumentation()
-                .AddNpgsql())
+                .AddNpgsql()
+                .AddSource("Marten"))
             .WithMetrics(metrics => metrics
                 .AddHttpClientInstrumentation()
                 .AddAspNetCoreInstrumentation()
                 .AddRuntimeInstrumentation()
-                .AddNpgsqlInstrumentation())
+                .AddNpgsqlInstrumentation()
+                .AddMeter("Marten"))
             .UseOtlpExporter();
 
         builder.Logging.AddOpenTelemetry(options =>
@@ -109,8 +116,13 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddMarten(opts =>
             {
                 opts.Connection(connectionString);
+
+                opts.AutoCreateSchemaObjects = AutoCreate.All;
                 opts.DatabaseSchemaName = "recipebook";
                 opts.ApplicationAssembly = typeof(IRecipeBookApiMarker).Assembly;
+                opts.GeneratedCodeMode = TypeLoadMode.Auto;
+
+                opts.RegisterDocumentType<Recipe>();
             })
             .UseLightweightSessions();
 
