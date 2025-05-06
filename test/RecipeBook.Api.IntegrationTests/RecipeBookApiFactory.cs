@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 
 using Testcontainers.PostgreSql;
-using Testcontainers.Redis;
 
 namespace RecipeBook.Api.IntegrationTests;
 
@@ -22,6 +21,8 @@ public class RecipeBookApiFactory : WebApplicationFactory<IRecipeBookApiMarker>,
 
     public async ValueTask InitializeAsync()
     {
+        Oakton.OaktonEnvironment.AutoStartHost = true;
+
         await _postgres.StartAsync();
     }
 

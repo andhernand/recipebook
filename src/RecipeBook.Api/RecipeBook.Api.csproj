@@ -13,6 +13,7 @@
     <PackageReference Include="FluentValidation" Version="12.0.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
     <PackageReference Include="Marten.AspNetCore" Version="7.40.2" />
+    <PackageReference Include="Marten.CommandLine" Version="7.40.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
     <PackageReference Include="Microsoft.OpenApi" Version="1.6.24" />
     <PackageReference Include="Npgsql" Version="9.0.3" />
